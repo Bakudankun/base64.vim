@@ -84,7 +84,7 @@ enddef
 def Str2Blob(input: list<string>): blob
   return input
     ->mapnew((_, line) =>
-      (has('patch-9.0.0430') ? repeat(0z00, len(line)) : repeat([0], len(line))->list2blob())
+      repeat(0z00, len(line))
         ->map((i: number, _): number => char2nr(strpart(line, i, 1)))
         ->map((_, v) => v == 0x0A ? 0x00 : v))
     ->reduce((acc, val) => acc + 0z0A + val)
