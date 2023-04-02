@@ -7,7 +7,7 @@ export def Encode(input: any): string
   if typename(input) == 'list<string>'
     inblob = Str2Blob(input)
   elseif type(input) == v:t_string
-    inblob = Str2Blob(input->split('\n'))
+    inblob = Str2Blob(input->split('\n', true))
   elseif type(input) == v:t_blob
     inblob = input
   else
