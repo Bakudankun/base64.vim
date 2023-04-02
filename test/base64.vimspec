@@ -1,0 +1,67 @@
+" Modified version of Base64 test of vital.vim
+" https://github.com/vim-jp/vital.vim/blob/master/test/Data/Base64.vimspec
+
+Describe base64
+  Describe .Encode()
+    It encode string to base64 encoded string.
+      Assert Equals(base64#Encode("hello, world!"), 'aGVsbG8sIHdvcmxkIQ==')
+    End
+    It encode string RFC Test Vector 1.
+      Assert Equals(base64#Encode(""      ) , ''        )
+    End
+    It encode string RFC Test Vector 2.
+      Assert Equals(base64#Encode("f"     ) , 'Zg=='    )
+    End
+    It encode string RFC Test Vector 3.
+      Assert Equals(base64#Encode("fo"    ) , 'Zm8='    )
+    End
+    It encode string RFC Test Vector 4.
+      Assert Equals(base64#Encode("foo"   ) , 'Zm9v'    )
+    End
+    It encode string RFC Test Vector 5.
+      Assert Equals(base64#Encode("foob"  ) , 'Zm9vYg==')
+    End
+    It encode string RFC Test Vector 6.
+      Assert Equals(base64#Encode("fooba" ) , 'Zm9vYmE=')
+    End
+    It encode string RFC Test Vector 7.
+      Assert Equals(base64#Encode("foobar") , 'Zm9vYmFy')
+    End
+    It encode blob to base64 encoded string.
+      Assert Equals(base64#Encode(0z68656c6c6f2c20776f726c6421), 'aGVsbG8sIHdvcmxkIQ==')
+    End
+  End
+
+  Describe .Decode()
+    It decode base64 encoded string to blob.
+      Assert Equals(base64#Decode("aGVsbG8sIHdvcmxkIQ=="), 0z68656c6c6f2c20776f726c6421)
+    End
+  End
+
+  Describe .Decode2Str()
+    It decode base64 encoded string to string.
+      Assert Equals(base64#Decode2Str("aGVsbG8sIHdvcmxkIQ=="), ['hello, world!'])
+    End
+    It decode string RFC Test Vector 1.
+      Assert Equals(base64#Decode2Str(""        ), [''      ])
+    End
+    It decode string RFC Test Vector 2.
+      Assert Equals(base64#Decode2Str("Zg=="    ), ['f'     ])
+    End
+    It decode string RFC Test Vector 3.
+      Assert Equals(base64#Decode2Str("Zm8="    ), ['fo'    ])
+    End
+    It decode string RFC Test Vector 4.
+      Assert Equals(base64#Decode2Str("Zm9v"    ), ['foo'   ])
+    End
+    It decode string RFC Test Vector 5.
+      Assert Equals(base64#Decode2Str("Zm9vYg=="), ['foob'  ])
+    End
+    It decode string RFC Test Vector 6.
+      Assert Equals(base64#Decode2Str("Zm9vYmE="), ['fooba' ])
+    End
+    It decode string RFC Test Vector 7.
+      Assert Equals(base64#Decode2Str("Zm9vYmFy"), ['foobar'])
+    End
+  End
+End
