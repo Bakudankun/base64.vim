@@ -14,6 +14,10 @@ export def Encode(input: any): string
     throw 'argument must be Blob or List of strings'
   endif
 
+  if exists_compiled('*base64_encode')
+    return base64_encode(inblob)
+  endif
+
   var bits: list<number> = []
 
   var remain = 0
@@ -46,6 +50,10 @@ enddef
 
 
 export def Decode(input: string): blob
+  if exists_compiled('*base64_decode')
+    return base64_decode(input)
+  endif
+
   var ret = 0z
   var remain = 0
 
