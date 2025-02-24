@@ -90,6 +90,10 @@ enddef
 
 
 def Str2Blob(input: list<string>): blob
+  if has('patch-9.1.1144')
+    return str2blob(input)
+  endif
+
   return input
     ->mapnew((_, line) =>
       repeat(0z00, len(line))
@@ -100,6 +104,10 @@ enddef
 
 
 def Blob2Str(input: blob): list<string>
+  if has('patch-9.1.1144')
+    return blob2str(input, {encoding: 'none'})
+  endif
+
   var ret: list<string> = ['']
   for byte in input
     if byte == 0x0A # == "\n"
